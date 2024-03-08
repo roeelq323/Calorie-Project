@@ -9,10 +9,10 @@ router.post('/addcalories', async (req, res) => {
     const { user_id, year, month, day, description, category, amount } = req.body;
     const calorie = new Calorie({ user_id, year, month, day, description, category, amount });
     await calorie.save();
-    res.status(201);
+    res.status(201).send('Calorie consumption item added successfully');
   } catch (err) {
     console.error(err);
-    res.status(500);
+    res.status(500).send('Internal Server Error');
   }
 });
 
@@ -37,7 +37,7 @@ router.get('/report', async (req, res) => {
       res.json(categorizedReport);
     } catch (err) {
       console.error(err);
-      res.status(500);
+      res.status(500).send('Internal Server Error');
     }
   });
 
