@@ -1,7 +1,12 @@
+// developers: 
+// Roee Levi 314621780
+// Gome Ben Moshe 315752691
+
+
 const mongoose = require('mongoose')
 
-
-const calorieSchema = new mongoose.Schema({
+// Making the Calorie model for the mongo database
+const CalorieSchema = new mongoose.Schema({
     user_id: String,
     year: Number,
     month: Number,
@@ -10,6 +15,6 @@ const calorieSchema = new mongoose.Schema({
     category: String,
     amount: Number
 });
-
-const Calorie = mongoose.model('Calories', calorieSchema);
+// Creating the model in the database
+const Calorie = mongoose.model('Calories', CalorieSchema); 
 module.exports = Calorie

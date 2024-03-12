@@ -1,12 +1,17 @@
+// developers: 
+// Roee Levi 314621780
+// Gome Ben Moshe 315752691
+
+
 import mongoose from 'mongoose';
 
-
-const userSchema = new mongoose.Schema({
+// Making the User model for the mongo database
+const UserSchema = new mongoose.Schema({
     id: String,
     first_name: String,
     last_name: String,
     birthday: Date
 });
-
-const User = mongoose.model('Users', userSchema);
+// Creating the model in the database
+const User = mongoose.model('Users', UserSchema);
 module.exports = User;

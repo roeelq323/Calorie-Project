@@ -1,3 +1,7 @@
+// developers: 
+// Roee Levi 314621780
+// Gome Ben Moshe 315752691
+
 
 var express = require('express');
 var router = express.Router();
@@ -9,10 +13,10 @@ router.post('/addcalories', async (req, res) => {
     const { user_id, year, month, day, description, category, amount } = req.body;
     const calorie = new Calorie({ user_id, year, month, day, description, category, amount });
     await calorie.save();
-    res.status(201).send('Calorie consumption item added successfully');
+    res.status(201);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500);
   }
 });
 
@@ -37,14 +41,14 @@ router.get('/report', async (req, res) => {
       res.json(categorizedReport);
     } catch (err) {
       console.error(err);
-      res.status(500).send('Internal Server Error');
+      res.status(500);
     }
   });
 
 router.get('/about', (req, res) => {
   const developers = [
     { firstname: 'Roee', lastname: 'Levi', id: 314621780, email: 'roeelq323@gmail.com' },
-    { firstname: 'Gome', lastname: 'Ben Moshe', id: 456, email: 'jane@example.com' }
+    { firstname: 'Gome', lastname: 'Ben Moshe', id: 3, email: 'jane@example.com' }
   ];
   res.json(developers);
 });
