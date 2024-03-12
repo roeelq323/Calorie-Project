@@ -49,7 +49,7 @@ router.get('/report', async (req, res) => {
 router.get('/about', (req, res) => {
   const developers = [
     { firstname: 'Roee', lastname: 'Levi', id: 314621780, email: 'roeelq323@gmail.com' },
-    { firstname: 'Gome', lastname: 'Ben Moshe', id: 315752691, email: 'jane@example.com' }
+    { firstname: 'Gome', lastname: 'Ben Moshe', id: 315752691, email: 'gomebenmoshe@gmail.com' }
   ];
   res.json(developers);
 });
