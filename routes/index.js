@@ -3,6 +3,7 @@
 // Gome Ben Moshe 315752691
 
 
+
 var express = require('express');
 var router = express.Router();
 const Calorie  = require("../models/calorie.js");
@@ -13,10 +14,10 @@ router.post('/addcalories', async (req, res) => {
     const { user_id, year, month, day, description, category, amount } = req.body;
     const calorie = new Calorie({ user_id, year, month, day, description, category, amount });
     await calorie.save();
-    res.status(201);
+    res.status(201).send('Success');
   } catch (err) {
     console.error(err);
-    res.status(500);
+    res.status(500).send('Error');
   }
 });
 
@@ -41,7 +42,7 @@ router.get('/report', async (req, res) => {
       res.json(categorizedReport);
     } catch (err) {
       console.error(err);
-      res.status(500);
+      res.status(500).send('Error');
     }
   });
 
