@@ -2,7 +2,7 @@
 // Roee Levi 314621780
 // Gome Ben Moshe 315752691
 
-const body = require('express-validator');
+const {body} = require('express-validator');
 
 
 const calorieValidator = [
