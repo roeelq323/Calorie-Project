@@ -8,24 +8,23 @@ var express = require('express');
 var router = express.Router();
 const Calorie  = require("../models/calorie.js");
 const User  = require("../models/calorie.js");
-const calorieValidator = require("../middleware/validation.js");
+const {calorieValidator , validate} = require("../middleware/validation.js");
 
 
-
-router.post('/addcalories',calorieValidator, async (req, res) => {
-  const errors = calorieValidator(req);
+router.post('/addcalories',calorieValidator(), validate , async (req, res) => {
   try {
     const { user_id, year, month, day, description, category, amount } = req.body;
-    const user = User.find({user_id});
-    if(user && errors.isEmpty())
+    // checking if the user exists in the db
+    const user = await User.findOne({user_id : user_id});
+    if(user) 
     {
       const calorie = new Calorie({ user_id, year, month, day, description, category, amount });
       await calorie.save();
       res.status(201).send('Success');
     }
-    else
+    else // if the user dosent exist
     {
-      res.status(500).json({errors: errors.array()});
+      res.status(500).send('Error User dosent exist!');
     }
   } catch (err) {
     console.error(err);
