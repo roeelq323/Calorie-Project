@@ -3,7 +3,7 @@
 // Gome Ben Moshe 315752691
 
 
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 // Making the User model for the mongo database
 const UserSchema = new mongoose.Schema({

@@ -7,7 +7,7 @@
 var express = require('express');
 var router = express.Router();
 const Calorie  = require("../models/calorie.js");
-const User  = require("../models/calorie.js");
+const User  = require("../models/user.js");
 const {calorieValidator , validate} = require("../middleware/validation.js");
 
 
@@ -15,7 +15,7 @@ router.post('/addcalories',calorieValidator(), validate , async (req, res) => {
   try {
     const { user_id, year, month, day, description, category, amount } = req.body;
     // checking if the user exists in the db
-    const user = await User.findOne({user_id : user_id});
+    const user = await User.findOne({id: user_id});
     if(user) 
     {
       const calorie = new Calorie({ user_id, year, month, day, description, category, amount });
