@@ -7,9 +7,9 @@ const mongoose = require('mongoose');
 
 // The function which connects to mongodb atlas
 async function connectToDatabase() {
-    try {
+    try { // Connection information
         await mongoose.connect('mongodb+srv://gomebenmoshe:gome120'+
-        '@cluster0.2zod7bi.mongodb.net/?retryWrites=true&w=majority', { // Connection information
+        '@cluster0.2zod7bi.mongodb.net/?retryWrites=true&w=majority', { 
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

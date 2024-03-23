@@ -24,22 +24,28 @@ router.post('/addcalories', async (req, res) => {
 router.get('/report', async (req, res) => {
     try {
       const { user_id, year, month } = req.query;
-      const report = await Calorie.find({ user_id, year, month });
-  
-      // Group the report by category and exclude the category field
-      const categorizedReport = {
-        breakfast: [],
-        lunch: [],
-        dinner: [],
-        other: []
-      };
-  
-      report.forEach(item => {
-        const { category, day, description, amount } = item;
-        categorizedReport[category].push({ day, description, amount });
-      });
-  
-      res.json(categorizedReport);
+      if(req.query[`user_id`] && req.query[`year`] && req.query[`month`] )
+      {
+        const report = await Calorie.find({ user_id, year, month });
+        // Group the report by category and exclude the category field
+        const categorizedReport = {
+          breakfast: [],
+          lunch: [],
+          dinner: [],
+          other: []
+        };
+    
+        report.forEach(item => {
+          const { category, day, description, amount } = item;
+          categorizedReport[category].push({ day, description, amount });
+        });
+      
+        res.json(categorizedReport);
+      }
+      else
+      {
+        res.status(500).send('One of the parameters is missing!');
+      }
     } catch (err) {
       console.error(err);
       res.status(500).send('Error');
