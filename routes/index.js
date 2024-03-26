@@ -8,23 +8,51 @@ var express = require('express');
 var router = express.Router();
 const Calorie  = require("../models/calorie.js");
 const User  = require("../models/user.js");
-const {calorieValidator , validate} = require("../middleware/validation.js");
+const {calorieValidator , validate , checkDate} = require("../middleware/validation.js");
 
-
+// function and route for adding calories to the DB
 router.post('/addcalories',calorieValidator(), validate , async (req, res) => {
-  try {
-    const { user_id, year, month, day, description, category, amount } = req.body;
+  try { 
+    //getting parameters from request body
+    const user_id = req.body.user_id;
+    const description = req.body.description;
+    const category = req.body.category;
+    const amount = req.body.amount;
+    let year = req.body.year;
+    let month = req.body.month;
+    let day = req.body.day;
     // checking if the user exists in the db
     const user = await User.findOne({id: user_id});
     if(user) 
     {
-      const calorie = new Calorie({ user_id, year, month, day, description, category, amount });
-      await calorie.save();
-      res.status(201).send('Success');
+      // adding the missing date parts according to the current date
+      const today = new Date()
+      if(!year)
+      {
+        year = today.getFullYear();
+      }
+      if(!month)
+      {
+        month = today.getMonth() + 1;
+      }
+      if(!day)
+      {
+        day = today.getDate();
+      }
+      if(checkDate(day,month,year)) // date validation
+      {
+        const calorie = new Calorie({ user_id, year, month, day, description, category, amount });
+        await calorie.save();
+        res.status(201).send('Success');
+      }
+      else // if date is not valid
+      {
+        res.status(500).send('Error Date is Not Valid!');
+      }
     }
     else // if the user dosent exist
     {
-      res.status(500).send('Error User dosent exist!');
+      res.status(500).send('Error User Dosent Exist!');
     }
   } catch (err) {
     console.error(err);
